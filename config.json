@@ -14,7 +14,6 @@
     "plots":"",
     "coverage":"",
     "fastq":"",
-    "fastq_merged":"",
     "fastq_trimmed":"",
     "fastq_QC":"",
     "fastq_QC_raw":"",
