@@ -83,7 +83,7 @@ def cmd_subset_bam(config, fof):
 
         for fi in fof:
             sample_name = fi.split("/")[-1].split("_")[0]
-            cmd_str = "bedtools intersect -f 0.2 -wa -a {} -b {} | samtools sort -O bam -o {}{}_sorted_subset.bam".format(fi, config["paths"]["ori_bed"], config["paths"]["mapping_roi"], sample_name)
+            cmd_str = "bedtools intersect -f 0.2 -wa -a {} -b {} | samtools sort -O bam -o {}{}_sorted_subset.bam".format(fi, config["global_config"]["ori_bed"], config["paths"]["mapping_roi"], sample_name)
 
             cmd_file.write(cmd_str + '\n')
 
