@@ -158,8 +158,7 @@ def create_directories(config, logger):
     'fastq_QC', 'variant_calling', 'variant_annotation', 'cmd_files', 'fof_files', 'offtarget']:
         config['paths'][dire] = os.path.join(config['paths']['analysis'], dire + '/')
 
-    for dire in ['fastq_merged', 'fastq_trimmed']:
-        config['paths'][dire] = os.path.join(config['paths']['fastq'], dire + '/')
+    config['paths']['fastq_trimmed'] = os.path.join(config['paths']['fastq'], 'fastq_trimmed' + '/')
 
     for dire in ['fastq_QC_raw', 'fastq_QC_trimmed']:
         config['paths'][dire] = os.path.join(config['paths']['fastq_QC'], dire + '/')
