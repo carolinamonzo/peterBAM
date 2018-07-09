@@ -38,6 +38,8 @@ def get_config(project_path):
 
     config_list = []
 
+    # ATENTION we are changing directories
+
     os.chdir(project_path)
     for file in glob.glob("config_*.json"):
         config_list.append(file)
@@ -80,8 +82,14 @@ def cmd_coverage(config, fof):
     with open(config["paths"]["cmd_files"] + cmd_sh, "a") as cmd_file:
         for fi in fof:
             sample_name = fi.split("/")[-1].split("_")[0]
+            cmd_str = str("rsync /nfs/production3b/cmc_projects_3b/peterBAM/chrom_complete.sizes ./chrom_complete.sizes{}".format(sample_name))
 
-            cmd_str = "bedtools intersect -bed -g chrom_complete.sizes -a {} -b {} | bedtools coverage -g chrom_complete.sizes -d -a {} -b - | grep -v \\'^all\\' > {}/{}.pbcov".format(fi, config["global_config"]["ori_bed"], config["global_config"]["ori_bed"], config["paths"]["coverage"], sample_name)
+            os.system(cmd_str)
+
+        for fi in fof:
+            sample_name = fi.split("/")[-1].split("_")[0]
+
+            cmd_str = "bedtools intersect -bed -g chrom_complete.sizes{} -a {} -b {} | bedtools coverage -g chrom_complete.sizes{} -d -a {} -b - | grep -v \\'^all\\' > {}/{}.pbcov; rm ./chrom_complete.sizes{}".format(sample_name, fi, config["global_config"]["ori_bed"], sample_name, config["global_config"]["ori_bed"], config["paths"]["coverage"], sample_name, sample_name)
 
             cmd_file.write(cmd_str + '\n')
 
@@ -96,11 +104,12 @@ def run_parallel(config, cmd_sh):
 
     log_str = datetime.datetime.now().strftime("coverage_%Y%m%d_%H-%M-%S.log")
 
-    cmd = "parallel --joblog {}{} -j 17 :::: {}{}".format(config["paths"]["coverage"], log_str, config["paths"]["cmd_files"], cmd_sh)
+    cmd = "parallel --joblog {}{} -j 10 :::: {}{}".format(config["paths"]["coverage"], log_str, config["paths"]["cmd_files"], cmd_sh)
 
     print("[CMD]: " + cmd)
 
     subprocess.call(cmd + " 2> /dev/null", shell = True)
+    #subprocess.call(cmd, shell = True)
 
 def write_output_fof(config):
     '''
