@@ -80,7 +80,7 @@ def cmd_call_variants(config, fof):
     with open(config["paths"]["cmd_files"] + cmd_sh, "a") as cmd_file:
         for bam in fof:
             vcf_name = bam.split("/")[-1].split(".")[0].split("_")[0]
-            cmd_str = "freebayes -f {} -t {} --min-alternate-fraction 0.05 --report-all-haplotype-alleles --min-base-quality 10 --pooled-continuous -C 4 {} > {}{}-freebayes.vcf; samtools mpileup -l {} -t DP,ADF,ADR,AD -C50 -E -f {} -u {} | bcftools call -c -O z -f GQ -o {}/{}-pileup.vcf.gz".format(config["global_config"]["reference_genome"], config["global_config"]["ori_bed"], bam, config["paths"]["variant_calling"], vcf_name, config["global_config"]["ori_bed"], config["global_config"]["reference_genome"], bam, config["paths"]["variant_calling"], vcf_name)
+            cmd_str = "freebayes -f {} -t {} --min-alternate-fraction 0.05 --report-all-haplotype-alleles --min-base-quality 10 --pooled-continuous -C 4 {} > {}{}-freebayes.vcf; samtools mpileup -l {} -d 100000 -t DP,ADF,ADR,AD -C50 -E -f {} -u {} | bcftools call -c -O z -f GQ -o {}/{}-pileup.vcf.gz".format(config["global_config"]["reference_genome"], config["global_config"]["ori_bed"], bam, config["paths"]["variant_calling"], vcf_name, config["global_config"]["ori_bed"], config["global_config"]["reference_genome"], bam, config["paths"]["variant_calling"], vcf_name)
 
             cmd_file.write(cmd_str + "\n")
 
@@ -132,9 +132,9 @@ def main():
 
     cmd_sh = cmd_call_variants(config, fof)
 
-    #run_parallel(config, cmd_sh)
+    run_parallel(config, cmd_sh)
 
-    #write_output_fof(config)
+    write_output_fof(config)
 
 if __name__ == '__main__':
     main()
