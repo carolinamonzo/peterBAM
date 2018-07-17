@@ -1,5 +1,5 @@
 # peterBAM
-Scripts for hereditary variants analysis
+Scripts for probe-amplified deepseq analysis
 
 ### Arguments to run peterBAM:
    - Path to bed file
@@ -11,8 +11,9 @@ usage: utils.py [-h] [--test] [--debug] [--verbose] [--ori_fastq ORI_FASTQ]
                 [--ori_bed ORI_BED] [--project_path PROJECT_PATH]
                 [--show_steps]
 
-Pipeline for DeepSeq analysis 'peterBAM'/n/npython3.5 utils.py -fq
-fastq_path -b bed_file -p project_path
+Pipeline for DeepSeq analysis 'peterBAM'
+  
+python3.5 utils.py -fq fastq_path -b bed_file -p project_path
 
 optional arguments:
   -h, --help            show this help message and exit
