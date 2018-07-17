@@ -131,9 +131,9 @@ def main():
 
     cmd_sh = cmd_get_repetitive(config, fof)
 
-    #run_parallel(config, cmd_sh)
+    run_parallel(config, cmd_sh)
 
-    #write_output_fof(config)
+    write_output_fof(config)
 
 if __name__ == '__main__':
     main()
