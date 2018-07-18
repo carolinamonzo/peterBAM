@@ -24,6 +24,7 @@
     "mapping_QC":"",
     "variant_calling":"",
     "variant_calling_decomposed":"",
+    "variant_calling_merged":"",
     "variant_annotation":"",
     "bed":"",
     "fastq_files":"",
