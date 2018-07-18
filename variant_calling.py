@@ -112,7 +112,7 @@ def write_output_fof(config):
     fof = datetime.datetime.now().strftime("variant_calling_%Y%m%d_%H-%M-%S.fof")
     # Create fof file
 
-    cmd_fof = 'find {} -name "all_chr*_merged.vcf" > {}{}'.format(config["paths"]["variant_calling"], config["paths"]["fof_files"], fof)
+    cmd_fof = 'find {} -name "17NR*.vcf.gz" > {}{}'.format(config["paths"]["variant_calling"], config["paths"]["fof_files"], fof)
 
     # Write command on the command line
 
