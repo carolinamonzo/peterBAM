@@ -76,7 +76,7 @@ def cmd_preprocess_vcf(config, fof):
     vcfs_str = " ".join(fof)
 
     with open(config["paths"]["cmd_files"] + cmd_sh, "a") as cmd_file:
-        cmd_str = "vcf-merge {} | bgzip -c > {}/preprocessed_deepseq.vcf.gz; tabix -p vcf {}/preprocessed_deepseq.vcf.gz".format(vcfs_str, config["paths"]["variant_annotation"], config["paths"]["variant_annotation"])
+        cmd_str = "vcf-merge {} | vt decompose -s - | vt normalize -r {} -n - | bgzip -c > {}/preprocessed_deepseq.vcf.gz; tabix -p vcf {}/preprocessed_deepseq.vcf.gz".format(vcfs_str, config["global_config"]["reference_genome"], config["paths"]["variant_annotation"], config["paths"]["variant_annotation"])
         cmd_file.write(cmd_str)
 
     print("[INFO]: CMD_FILE - {}{}".format(config["paths"]["cmd_files"], cmd_sh))
