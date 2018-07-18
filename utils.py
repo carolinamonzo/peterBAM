@@ -165,6 +165,8 @@ def create_directories(config, logger):
 
     config['paths']['variant_calling_decomposed'] = os.path.join(config['paths']['variant_calling'],
         'variant_calling_decomposed/')
+    config["paths"]["variant_calling_merged"] = os.path.join(config["paths"]["variant_calling"],
+        "variant_calling_merged")
 
     for dire in ['mapping_roi_mkdup', 'mapping_roi']:
         config['paths'][dire] = os.path.join(config['paths']['mapping'], dire + '/')
